@@ -4,15 +4,19 @@ RUN apt-get update && apt-get install -y curl
 
 RUN curl -sL https://deb.nodesource.com/setup_13.x | bash - && apt-get install -y git nodejs cloc
 
+WORKDIR /usr/manual-clones
+
+COPY /manual-clones .
+
 WORKDIR /usr/jquery-data
 
 COPY prep.py .
 
 COPY jquery_releases.csv .
 
-RUN python prep.py
+# RUN python prep.py
 
-RUN rm -rf jquery_releases.csv
+# RUN rm -rf jquery_releases.csv
 
 # Docker caches results, so if you want to add custom steps to this dockerfile
 # (maybe you want to copy in more files) then consider adding these steps below here.
