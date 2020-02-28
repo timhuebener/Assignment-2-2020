@@ -14,9 +14,11 @@ COPY prep.py .
 
 COPY jquery_releases.csv .
 
-# RUN python prep.py
+RUN python prep.py
 
-# RUN rm -rf jquery_releases.csv
+RUN rm -rf jquery_releases.csv
+
+COPY find_duplicates.sh .
 
 # Docker caches results, so if you want to add custom steps to this dockerfile
 # (maybe you want to copy in more files) then consider adding these steps below here.

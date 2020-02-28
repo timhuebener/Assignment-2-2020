@@ -38,3 +38,9 @@ that you can then run JsInspect on those files.
 # Run the manual clone test 
 
 `jsinspect -I -L -t 20 ./manual-clones/`
+
+# Run jsinspect for every source code version pairs of the jQuery
+
+`./find_duplicates.sh`
+
+It will create a json output file with the results of the jsinspect for every source code version pairs.
