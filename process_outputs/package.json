@@ -1,0 +1,17 @@
+{
+  "name": "process_outputs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsc && node .dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^13.7.7",
+    "fs": "0.0.1-security",
+    "npx": "^10.2.2",
+    "typescript": "^3.8.3"
+  }
+}

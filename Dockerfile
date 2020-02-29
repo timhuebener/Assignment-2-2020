@@ -27,6 +27,8 @@ COPY find_duplicates.sh .
 
 WORKDIR /usr
 
+COPY process_outputs process_outputs
+
 COPY jsinspect jsinspect
 
 RUN npm install -g ./jsinspect
