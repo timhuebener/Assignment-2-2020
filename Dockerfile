@@ -4,6 +4,8 @@ RUN apt-get update && apt-get install -y curl
 
 RUN curl -sL https://deb.nodesource.com/setup_13.x | bash - && apt-get install -y git nodejs cloc
 
+RUN apt-get install -y bc
+
 WORKDIR /usr/manual-clones
 
 COPY /manual-clones .
