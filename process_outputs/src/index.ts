@@ -23,19 +23,17 @@ const input: DiffItem[] = JSON.parse(
     "utf8"
   )
 );
-// console.log(input);
 
-// Maybe the filtering should work another way: from every instance (array of duplicates) filter so that
-// the first of the first version and all of the second version remain in the array
-// (Now all the other versions are included)
-const instances = input
-  .flatMap(item => item.instances)
-  .filter(instance => instance.path.includes(version));
+// TODO: check this filtering part -> is it needed, how should we filter?
+// jsinspect output cases:
+// duplicates1: {v1, v2}, duplicates2{v1, v1, .., v2, v2, ..}, duplicates3{v1, v1, ..}, duplicates4{v2, v2, ..}
+// Probably we should filter at least the case duplicates3 and duplicates4 because it does not mean similarity between versions at all
+
+const instances = input.flatMap(item => item.instances);
+// .filter(instance => instance.path.includes(version));
 // console.log(instances);
 
 let codeDuplicateCharCount = 0;
 instances.forEach(item => (codeDuplicateCharCount += item.code.length));
-console.log(
-  // `Char count for code duplicates in version ${version}:`,
-  codeDuplicateCharCount
-);
+// Char count for code duplicates in version ${version},
+console.log(codeDuplicateCharCount);
