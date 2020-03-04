@@ -51,4 +51,7 @@ The following steps will be performed:
 2. Calculate the **character count** for every version of the **jQuery source code repositories** (_char_count_version_i_).
 3. Process the output files of the jsinspect and calculate the character count of the found duplicates for the jQuery source code version pair (_duplicate_char_count_).
 4. Calculate the similarity between every jQuery source code version pair in the following way: _similarity_i_j = duplicate_char_count/(char_count_version_i + char_count_version_j)_
-5. Write these similarities into an output file that can be used for the heatmap creation (TODO)
+5. Create output files that will be used for the heatmap generation:
+
+- print the character counts of jQuery repositories into the `jQuery_sizes_output.csv` file (the first line contains the list of sorted version numbers separated by space, after that the character counts of jQuery versions are listed in separate lines in the same order as they appear in the first row)
+- print the matrix of similarities into the `similarities_output.csv` file (the first line contains the list of sorted version numbers separated by space, after that the similarity matrix between the versions is printed, the rows and columns correspond to the versions in the same order as they appear in the first row)
