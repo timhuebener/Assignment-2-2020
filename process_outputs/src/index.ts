@@ -3,8 +3,6 @@ import * as path from "path";
 
 const args = process.argv.slice(2);
 const outputFileName = args[0];
-const version = args[1];
-// console.log("outputFileName: ", outputFileName, "\nversion:", version);
 
 interface Instance {
   path: string;
@@ -24,16 +22,22 @@ const input: DiffItem[] = JSON.parse(
   )
 );
 
-// TODO: check this filtering part -> is it needed, how should we filter?
-// jsinspect output cases:
+// jsinspect output cases for duplicate blocks:
 // duplicates1: {v1, v2}, duplicates2{v1, v1, .., v2, v2, ..}, duplicates3{v1, v1, ..}, duplicates4{v2, v2, ..}
-// Probably we should filter at least the case duplicates3 and duplicates4 because it does not mean similarity between versions at all
-
-const instances = input.flatMap(item => item.instances);
-// .filter(instance => instance.path.includes(version));
-// console.log(instances);
+// We have to filter the duplicates3 and duplicates4 cases because they does not mean similarity between versions
+const filteredInput = input.filter(diffItem => {
+  let v = diffItem.instances[0].path.split("/")[1];
+  let sameVersion = true;
+  diffItem.instances.forEach(instance => {
+    if (instance.path.split("/")[1] !== v) {
+      sameVersion = false;
+    }
+  });
+  return !sameVersion;
+});
+const instances = filteredInput.flatMap(item => item.instances);
 
 let codeDuplicateCharCount = 0;
 instances.forEach(item => (codeDuplicateCharCount += item.code.length));
-// Char count for code duplicates in version ${version},
+// Char count of code duplicates based on the jsinspect output file:
 console.log(codeDuplicateCharCount);

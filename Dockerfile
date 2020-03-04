@@ -35,6 +35,10 @@ COPY jsinspect jsinspect
 
 RUN npm install -g ./jsinspect
 
+WORKDIR /usr/process_outputs
+
+RUN npm install
+
 # Increase the amount of memory nodejs can allocate, this
 # prevents JsInspect from running into the GC issues. 
 ENV NODE_OPTIONS=--max-old-space-size=4000
