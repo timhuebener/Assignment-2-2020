@@ -55,3 +55,9 @@ The following steps will be performed:
 
 - print the character counts of jQuery repositories into the `jQuery_sizes_output.csv` file (the first line contains the list of sorted version numbers separated by space, after that the character counts of jQuery versions are listed in separate lines in the same order as they appear in the first row)
 - print the matrix of similarities into the `similarities_output.csv` file (the first line contains the list of sorted version numbers separated by space, after that the similarity matrix between the versions is printed, the rows and columns correspond to the versions in the same order as they appear in the first row)
+
+# Get lines of code for every jQuery versions
+
+`./get_loc.sh`
+
+It will run the `cloc` Unix command with the proper parameters for every jQuery version and write the resulted lines of code into the `loc.csv` file, separated by new lines. (The order of the calculated lines of codes per jQuery version correspond to the order of the jQuery versions sorted numerically.)
