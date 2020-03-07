@@ -17,5 +17,5 @@ function fibonacci(nth_number) {
   return n1;
 }
 
-// print the n-th fibunacci number
+// print the n-th fibonacci number
 console.log(fibonacci(78));

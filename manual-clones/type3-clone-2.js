@@ -12,4 +12,4 @@ function fibonacci(num) {
   return b;
 }
 
-fibonacci(78)
+console.log(fibonacci(78));

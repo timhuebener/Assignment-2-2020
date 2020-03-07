@@ -6,9 +6,9 @@ echo "Script started"
 # $ v="1.0\n1.0.4\n1.1.3\n1.10.1\n1.11.2\n1.12.2\n1.2.1\n1.2.5\n1.3.1\n1.4.1\n1.5\n1.6\n1.6.3\n1.7.1\n1.8.2\n2.0.0\n2.1.0\n2.1.4\n2.2.3\n3.1.1\n3.3.1\n1.0.1\n1.1\n1.1.3.1\n1.10.2\n1.11.3\n1.12.3\n1.2.2\n1.2.6\n1.3.2\n1.4.2\n1.5.0\n1.6.0\n1.6.4\n1.7.2\n1.8.3\n2.0.1\n2.1.1\n2.2.0\n2.2.4\n3.2.0\n3.4.0\n1.0.2\n1.1.1\n1.1.4\n1.11.0\n1.12.0\n1.12.4\n1.2.3\n1.3\n1.4\n1.4.3\n1.5.1\n1.6.1\n1.7\n1.8.0\n1.9.0\n2.0.2\n2.1.2\n2.2.1\n3.0.0\n3.2.1\n1.0.3\n1.1.2\n1.10.0\n1.11.1\n1.12.1\n1.2\n1.2.4\n1.3.0\n1.4.0\n1.4.4\n1.5.2\n1.6.2\n1.7.0\n1.8.1\n1.9.1\n2.0.3\n2.1.3\n2.2.2\n3.1.0\n3.3.0\n3.4.1"
 # $ printf $v | sort --version-sort
 # Then the received output was processed in VSCode so that every new line was converted to space character and the values were put into an array
-versions=(1.0 1.0.1 1.0.2 1.0.3 1.0.4 1.1)
+# versions=(1.0 1.0.1 1.0.2)
 # TODO: run for all versions
-# versions=(1.0 1.0.1 1.0.2 1.0.3 1.0.4 1.1 1.1.1 1.1.2 1.1.3 1.1.3.1 1.1.4 1.2 1.2.1 1.2.2 1.2.3 1.2.4 1.2.5 1.2.6 1.3 1.3.0 1.3.1 1.3.2 1.4 1.4.0 1.4.1 1.4.2 1.4.3 1.4.4 1.5 1.5.0 1.5.1 1.5.2 1.6 1.6.0 1.6.1 1.6.2 1.6.3 1.6.4 1.7 1.7.0 1.7.1 1.7.2 1.8.0 1.8.1 1.8.2 1.8.3 1.9.0 1.9.1 1.10.0 1.10.1 1.10.2 1.11.0 1.11.1 1.11.2 1.11.3 1.12.0 1.12.1 1.12.2 1.12.3 1.12.4 2.0.0 2.0.1 2.0.2 2.0.3 2.1.0 2.1.1 2.1.2 2.1.3 2.1.4 2.2.0 2.2.1 2.2.2 2.2.3 2.2.4 3.0.0 3.1.0 3.1.1 3.2.0 3.2.1 3.3.0 3.3.1 3.4.0 3.4.1)
+versions=(1.0 1.0.1 1.0.2 1.0.3 1.0.4 1.1 1.1.1 1.1.2 1.1.3 1.1.3.1 1.1.4 1.2 1.2.1 1.2.2 1.2.3 1.2.4 1.2.5 1.2.6 1.3 1.3.0 1.3.1 1.3.2 1.4 1.4.0 1.4.1 1.4.2 1.4.3 1.4.4 1.5 1.5.0 1.5.1 1.5.2 1.6 1.6.0 1.6.1 1.6.2 1.6.3 1.6.4 1.7 1.7.0 1.7.1 1.7.2 1.8.0 1.8.1 1.8.2 1.8.3 1.9.0 1.9.1 1.10.0 1.10.1 1.10.2 1.11.0 1.11.1 1.11.2 1.11.3 1.12.0 1.12.1 1.12.2 1.12.3 1.12.4 2.0.0 2.0.1 2.0.2 2.0.3 2.1.0 2.1.1 2.1.2 2.1.3 2.1.4 2.2.0 2.2.1 2.2.2 2.2.3 2.2.4 3.0.0 3.1.0 3.1.1 3.2.0 3.2.1 3.3.0 3.3.1 3.4.0 3.4.1)
 
 # If output directory does not exists create it, otherwise clean it before creating the new output files
 FILE=/usr/jsinspect-out
@@ -37,15 +37,12 @@ echo "Collecting character counts of jQuery repositories..."
 # After that the character counts of jQuery versions are listed in the same order as they appear in the first row
 echo ${versions[*]} >> /usr/jsinspect-out/jQuery_sizes_output.csv
 declare -A repoCharCounts
-regex="(intro|outro|min).js"
+regex="((intro|outro|min).js)|dist|build|test"
 # Calculate the char counts in every jQuery repository
 for i in "${versions[@]}"
 do 
     # echo "Working with repo ${i}"
     charCount=0
-    # TODO: this regex includes /dist, /test and /build directories, that won't affect the char count calculation but
-    # it gives a "wc: 'standard input': Is a directory" during the next processing step
-    # Something like this should work: find ./3.0.0 -regex '^((?!build|test|dist).)*.js$' 
     for f in $( find ./$i \( -path '*/build' -o -path '*/test' -o -path '*/dist' \) -prune -o -name '*.js' )
     do
         if [[ ! $f =~ $regex ]]

@@ -5,7 +5,6 @@ function fibonacci(num) {
     temp = a + b;
     b = a;
     a = temp;
-    console.log(a);
   }
 
   return b;

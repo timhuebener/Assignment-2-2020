@@ -7,10 +7,9 @@ function fibonacci(num) {
     b = a;
     a = temp;
     i++;
-    console.log(b);
   }
 
   return b;
 }
 
-fibonacci(78);
+console.log(fibonacci(78));
