@@ -6,6 +6,8 @@ RUN curl -sL https://deb.nodesource.com/setup_13.x | bash - && apt-get install -
 
 RUN apt-get install -y bc
 
+RUN pip install seaborn
+
 WORKDIR /usr/manual-clones
 
 COPY /manual-clones .
@@ -32,6 +34,8 @@ COPY get_loc.sh .
 WORKDIR /usr
 
 COPY process_outputs process_outputs
+
+COPY seaborn_heatmap.py seaborn_heatmap.py
 
 COPY jsinspect jsinspect
 

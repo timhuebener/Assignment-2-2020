@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 
-with open("sim.csv", 'r') as f:
+with open("./jsinspect-out/similarities_output.csv", 'r') as f:
   similarities = list(csv.reader(f, delimiter=","))
   similarities = np.array(similarities[0:], dtype=np.float)
 
@@ -18,4 +18,4 @@ ax = sns.heatmap(similarities, vmin=0, vmax=1, cmap="YlGnBu",
                  xticklabels=versions, yticklabels=versions,
                   linewidths=0.01, linecolor='grey', mask=mask)
 
-fig.savefig('seaheat.png', dpi=400)
+fig.savefig('./jsinspect-out/seaheat.png', dpi=400)
