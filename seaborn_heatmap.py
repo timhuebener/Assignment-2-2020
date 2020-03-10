@@ -2,8 +2,6 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
-import pdb
-import matplotlib.ticker as ticker
 
 with open("sim.csv", 'r') as f:
   similarities = list(csv.reader(f, delimiter=","))
@@ -15,23 +13,9 @@ versions = ["1.0", "1.0.1", "1.0.2", "1.0.3", "1.0.4", "1.1", "1.1.1", "1.1.2", 
 mask = np.zeros_like(similarities)
 mask[np.triu_indices_from(mask)] = True
 
-flatui = ["#ffffff", "#00fbff", "#3cff00", "#ffea00", "#ff8000", "#ff0000"]
-# sns.color_palette(flatui)
-sns.set_style("ticks", {"xtick.major.size": 8, "ytick.major.size": 8})
-
 fig, ax = plt.subplots(figsize=(15, 15))
 ax = sns.heatmap(similarities, vmin=0, vmax=1, cmap="YlGnBu",
                  xticklabels=versions, yticklabels=versions,
                   linewidths=0.01, linecolor='grey', mask=mask)
-
-# majors = ["1.0", "2.0.0", "3.0.0"]
-# ax.xaxis.set_major_locator(ticker.FixedLocator(majors))
-
-# ax.tick_params(which='both', width=2)
-# ax.tick_params(which='major', length=7)
-# ax.tick_params(which='minor', length=0)
-
-
-# pdb.set_trace()
 
 fig.savefig('seaheat.png', dpi=400)
